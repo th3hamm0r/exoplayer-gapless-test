@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.ByteBuffer;
 
 public class CustomPlayer extends AsyncTask<Void, Void, Void> {
@@ -33,7 +32,6 @@ public class CustomPlayer extends AsyncTask<Void, Void, Void> {
     private MediaExtractor nextExtractor = null;
     private MediaCodec codec = null;
     private AudioTrack audioTrack = null;
-    private OutputStream pcmOutputStream = null;
 
     private long currentExtractorPositionUs = 0;
     private long absoluteExtractedPositionUs = 0;
@@ -61,11 +59,6 @@ public class CustomPlayer extends AsyncTask<Void, Void, Void> {
         if (extractor != null) {
             extractor.release();
             extractor = null;
-        }
-
-        if (pcmOutputStream != null) {
-            pcmOutputStream.close();
-            pcmOutputStream = null;
         }
 
         if (++currentAsset < assets.length) {
@@ -252,9 +245,6 @@ public class CustomPlayer extends AsyncTask<Void, Void, Void> {
 
                         if (chunk.length > 0) {
                             audioTrack.write(chunk, 0, chunk.length);
-                            if (pcmOutputStream != null) {
-                                pcmOutputStream.write(chunk, 0, chunk.length);
-                            }
                         }
                         codec.releaseOutputBuffer(outputBufferIndex, false /* render */);
 
@@ -320,15 +310,6 @@ public class CustomPlayer extends AsyncTask<Void, Void, Void> {
         if (audioTrack != null) {
             audioTrack.release();
             audioTrack = null;
-        }
-
-        if (pcmOutputStream != null) {
-            try {
-                pcmOutputStream.close();
-            } catch (IOException ignore) {
-            } finally {
-                pcmOutputStream = null;
-            }
         }
     }
 
