@@ -1,0 +1,25 @@
+# gradle
+.gradle/
+build/
+
+# local config
+local.properties
+
+# log files
+*.log
+
+# other files
+.DS_Store
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Android Studio captures folder
+captures/
+
+# IntelliJ
+*.iml
+.idea/
+
+# ios
+Pod/
