@@ -25,8 +25,8 @@ public class MainActivity extends AppCompatActivity {
     private ExoPlayer exoPlayer;
 
     private final String[] assets = new String[]{
-            "1.ogg",
-            "2.ogg",
+            "1.mp3",
+            "2.mp3",
     };
 
     @Override
