@@ -18,21 +18,28 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import java.util.ArrayList;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private ExoPlayer exoPlayer;
 
-    private final String[] assets = new String[]{
-            "1.mp3",
-            "2.mp3",
-    };
+    private String[] assets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        ArrayList<String> items = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            items.add(String.format(Locale.US, "%03d.mp3", i));
+        }
+        assets = items.toArray(new String[items.size()]);
 
         findViewById(R.id.button_start_stop_exoplayer).setOnClickListener(new View.OnClickListener() {
             @Override
